@@ -1,0 +1,51 @@
+# Streamlit UI
+streamlit>=1.32.0
+streamlit-extras>=0.4.0
+
+# CUDA 12.6
+--index-url https://download.pytorch.org/whl/cu126
+torch>=2.2.0
+torchvision>=0.17.0
+torchaudio>=2.2.0
+
+# Video Processing
+opencv-python>=4.9.0
+opencv-contrib-python>=4.9.0
+ffmpeg-python>=0.2.0
+moviepy>=1.0.3
+imageio-ffmpeg>=0.4.9
+
+# YouTube Download
+yt-dlp>=2024.3.10
+pytube>=15.0.0
+
+# Audio Transcription
+openai-whisper>=20231117
+whisper>=1.1.10
+
+# AI Integration
+openai>=1.14.0
+anthropic>=0.18.0
+zai-sdk>=0.2.2
+requests>=2.31.0
+
+# Object Detection
+ultralytics>=8.1.0
+
+# Audio Processing
+pydub>=0.25.1
+librosa>=0.10.1
+
+# Data Processing
+numpy>=1.26.0
+pandas>=2.2.0
+pillow>=10.2.0
+
+# Utilities
+tqdm>=4.66.0
+python-dotenv>=1.0.0
+loguru>=0.7.2
+scipy>=1.12.0
+
+# Model Downloads
+huggingface-hub>=0.21.0
