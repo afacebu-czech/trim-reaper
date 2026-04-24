@@ -408,11 +408,26 @@ class VideoProcessor:
         logger.info(f"Running FFmpeg: {' '.join(cmd)}")
         
         try:
-            result = subprocess.run(cmd, capture_output=True, text=True)
+            # Handle windows encoding
+            import sys
+            env = None
+            if sys.platform=='win32':
+                env=os.environ.copy()
+                env['PYTHONIOENCODING']='utf-8'
+            
+            result = subprocess.run(cmd, capture_output=True, text=True, env=env)
             
             if result.returncode != 0:
                 logger.error(f"FFmpeg error: {result.stderr}")
                 # Try simpler approach
+                return self._process_with_opencv(input_path, output_path, start_time, end_time)
+            
+            # Verify file was created
+            if os.path.exists(output_path):
+                logger.success(f"FFmpeg output created: {output_path}")
+                return output_path
+            else:
+                logger.error("FFmpeg output file not created")
                 return self._process_with_opencv(input_path, output_path, start_time, end_time)
             
             return output_path
@@ -598,12 +613,20 @@ class VideoProcessor:
         ]
         
         try:
-            result = subprocess.run(cmd, capture_output=True, text=True)
+            # Handle windows encoding
+            import sys
+            env = None
+            if sys.platform=='win32':
+                env=os.environ.copy()
+                env['PYTHONIOENCODING']='utf-8'
+            
+            result = subprocess.run(cmd, capture_output=True, text=True, env=env)
             
             if result.returncode == 0:
                 # Remove temp file
                 if os.path.exists(video_path):
                     os.remove(video_path)
+                logger.success(f"Audio added successfully: {output_path}")
                 return output_path
             else:
                 logger.warning(f"Audio merge failed: {result.stderr}")
